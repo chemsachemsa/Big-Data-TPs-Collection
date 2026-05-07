@@ -1,0 +1,39 @@
+# =========================
+# TP5 MongoDB Commands
+# =========================
+
+# 1) تشغيل MongoDB Container
+docker start mongo
+
+# 2) التأكد أن الحاوية تعمل
+docker ps
+
+# 3) نسخ ملف CSV إلى داخل الحاوية
+docker cp D:\TP6\restaurants.csv mongo:/restaurants.csv
+
+# 4) استيراد البيانات إلى MongoDB
+docker exec -i mongo mongoimport --db restaurantDB --collection restaurants --type csv --fields id,name,borough,buildingnum,street,zipcode,phone,cuisinetype --file /restaurants.csv
+
+# 5) الدخول إلى Mongo Shell
+docker exec -it mongo mongosh
+
+# 6) اختيار قاعدة البيانات
+use restaurantDB
+
+# 7) عرض جميع الـ collections
+show collections
+
+# 8) حساب عدد الوثائق
+db.restaurants.countDocuments()
+
+# 9) عرض أول 5 وثائق
+db.restaurants.find().limit(5)
+
+# 10) البحث عن مطاعم في MANHATTAN
+db.restaurants.find({borough:"MANHATTAN"}).limit(5)
+
+# 11) البحث عن مطاعم American
+db.restaurants.find({cuisinetype:"American"}).limit(5)
+
+# 12) الخروج
+exit

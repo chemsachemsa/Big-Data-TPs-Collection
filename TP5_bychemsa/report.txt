@@ -1,0 +1,78 @@
+# =========================
+# TP5 Report - MongoDB
+# =========================
+
+Title:
+Importing and Querying Restaurant Data using MongoDB and Docker
+
+Objective:
+The objective of this practical work is to learn how to use MongoDB with Docker,
+import CSV data into a MongoDB collection, and execute basic NoSQL queries.
+
+Environment:
+- Operating System: Windows
+- Docker Desktop
+- MongoDB Container
+- Mongo Shell (mongosh)
+
+Dataset:
+restaurants.csv
+
+Steps:
+
+1) Start MongoDB Container
+The MongoDB container was started using Docker.
+
+Command:
+docker start mongo
+
+2) Verify Container Status
+The container status was checked using:
+
+docker ps
+
+3) Copy CSV File
+The restaurants.csv dataset was copied into the container.
+
+Command:
+docker cp D:\TP6\restaurants.csv mongo:/restaurants.csv
+
+4) Import Data into MongoDB
+The CSV file was imported into the collection "restaurants"
+inside the database "restaurantDB".
+
+Command:
+docker exec -i mongo mongoimport --db restaurantDB --collection restaurants --type csv --fields id,name,borough,buildingnum,street,zipcode,phone,cuisinetype --file /restaurants.csv
+
+5) Access Mongo Shell
+Mongo shell was opened using:
+
+docker exec -it mongo mongosh
+
+6) Select Database
+The database restaurantDB was selected.
+
+Command:
+use restaurantDB
+
+7) Execute Queries
+
+Display collections:
+show collections
+
+Count documents:
+db.restaurants.countDocuments()
+
+Display first documents:
+db.restaurants.find().limit(5)
+
+Search by borough:
+db.restaurants.find({borough:"MANHATTAN"}).limit(5)
+
+Search by cuisine type:
+db.restaurants.find({cuisinetype:"American"}).limit(5)
+
+Conclusion:
+MongoDB was successfully installed and executed using Docker.
+The CSV dataset was imported correctly and multiple NoSQL queries
+were executed successfully on the restaurants collection.
