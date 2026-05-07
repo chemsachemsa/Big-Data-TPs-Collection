@@ -1,0 +1,71 @@
+# =========================
+# TP6 REPORT - Big Data / NoSQL (Cassandra + MongoDB)
+# =========================
+
+## 1. Objective
+The objective of this TP is to practice NoSQL databases using Cassandra and MongoDB with Docker containers and to import structured data from a CSV file (restaurants dataset).
+
+---
+
+## 2. Tools Used
+- Docker
+- Cassandra container
+- MongoDB container
+- CQLSH (Cassandra Query Language Shell)
+- Mongo Shell (mongosh)
+- restaurants.csv dataset
+
+---
+
+## 3. Cassandra Part
+
+### 3.1 Container Execution
+We started the Cassandra container using Docker and accessed it using bash.
+
+### 3.2 Keyspace Creation
+A keyspace named `restaurantdb` was created using SimpleStrategy replication.
+
+### 3.3 Table Creation
+A table named `restaurant` was created with fields:
+id, name, borough, buildingnum, street, zipcode, phone, cuisinetype.
+
+### 3.4 Data Import
+Data from `restaurants.csv` was imported using the COPY command.
+
+### 3.5 Query Testing
+We tested the insertion using:
+- COUNT query
+- SELECT queries
+
+---
+
+## 4. MongoDB Part
+
+### 4.1 Container Execution
+MongoDB container was started using Docker.
+
+### 4.2 Database Creation
+A database named `restaurantDB` was created.
+
+### 4.3 Data Import
+CSV file was imported using mongoimport command.
+
+### 4.4 Data Verification
+We verified data using find() query.
+
+---
+
+## 5. Challenges Faced
+- Connection issues with Cassandra due to container state
+- Timeout errors caused by resource limitations
+- File path issues in Docker volumes
+- Temporary MongoDB shell connection issues
+
+---
+
+## 6. Conclusion
+This TP allowed us to understand how NoSQL databases work in distributed environments using Docker, and how to import and query large datasets efficiently.
+
+---
+
+## End of Report

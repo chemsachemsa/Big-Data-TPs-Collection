@@ -1,0 +1,69 @@
+# =========================
+# TP6 - Cassandra + MongoDB + Docker
+# =========================
+
+# 1. تشغيل/تفقد الحاويات
+docker ps -a
+
+# 2. تشغيل Cassandra container
+docker start mon-cassandra
+
+# 3. الدخول إلى Cassandra
+docker exec -it mon-cassandra bash
+
+# 4. تشغيل CQLSH داخل الحاوية
+cqlsh
+
+# 5. إنشاء قاعدة بيانات
+CREATE KEYSPACE restaurantdb
+WITH replication = {'class':'SimpleStrategy', 'replication_factor':1};
+
+# 6. استخدام قاعدة البيانات
+USE restaurantdb;
+
+# 7. إنشاء Table
+CREATE TABLE restaurant (
+    id text PRIMARY KEY,
+    name text,
+    borough text,
+    buildingnum text,
+    street text,
+    zipcode text,
+    phone text,
+    cuisinetype text
+);
+
+# 8. استيراد CSV داخل Cassandra
+COPY restaurant (id, name, borough, buildingnum, street, zipcode, phone, cuisinetype)
+FROM '/restaurants.csv'
+WITH DELIMITER=',' AND HEADER=TRUE;
+
+# 9. التحقق من البيانات
+SELECT COUNT(*) FROM restaurant;
+
+# 10. اختبار قراءة بيانات
+SELECT * FROM restaurant LIMIT 10;
+
+# =========================
+# MongoDB part (TP6 extension)
+# =========================
+
+# 11. تشغيل Mongo container
+docker start mongo
+
+# 12. الدخول إلى Mongo shell
+docker exec -it mongo mongosh
+
+# 13. إنشاء Database
+use restaurantDB;
+
+# 14. استيراد CSV إلى MongoDB
+docker exec -i mongo mongoimport \
+--db restaurantDB \
+--collection restaurants \
+--type csv \
+--headerline \
+--file /restaurants.csv
+
+# 15. عرض البيانات
+db.restaurants.find().limit(10);
